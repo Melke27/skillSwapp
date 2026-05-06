@@ -1,3 +1,5 @@
+
+
 # SkillSwap: Student Skills Exchange Platform
 
 SkillSwap is a peer-to-peer mobile application designed for students to exchange skills and knowledge without monetary transactions. This platform fosters a collaborative learning environment where users can teach what they know and learn what they need from their peers.
