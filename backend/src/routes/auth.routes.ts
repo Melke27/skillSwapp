@@ -25,7 +25,9 @@ const signToken = (userId: string, email: string): string =>
 router.post("/register", async (req, res, next) => {
   try {
     const parsed = registerSchema.parse(req.body);
-    const email = parsed.email.toLowerCase();
+    const email = parsed.email.trim().toLowerCase();
+    const name = parsed.name.trim();
+    const school = parsed.school?.trim();
 
     const exists = await UserModel.findOne({ email }).lean();
     if (exists) {
@@ -36,9 +38,9 @@ router.post("/register", async (req, res, next) => {
     const passwordHash = await bcrypt.hash(parsed.password, 10);
 
     const user = await UserModel.create({
-      name: parsed.name,
+      name,
       email,
-      school: parsed.school ?? "",
+      school: school ?? "",
       passwordHash,
       skillsToTeach: [],
       skillsToLearn: []
@@ -63,7 +65,7 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const parsed = loginSchema.parse(req.body);
-    const email = parsed.email.toLowerCase();
+    const email = parsed.email.trim().toLowerCase();
 
     const user = await UserModel.findOne({ email });
     if (!user) {

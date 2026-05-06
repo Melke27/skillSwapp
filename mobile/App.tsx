@@ -71,7 +71,7 @@ const AppShell: React.FC = () => {
       <View style={styles.header}>
         <View>
           <Text style={styles.appTitle}>SkillSwap</Text>
-          <Text style={styles.sub}>{profile?.school || "Student Exchange"}</Text>
+          <Text style={styles.sub}>{profile?.school || "Student Exchange Network"}</Text>
         </View>
         <Pressable style={styles.logoutBtn} onPress={logout}>
           <Text style={styles.logoutTxt}>Logout</Text>
@@ -156,46 +156,54 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 14,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
     backgroundColor: "#fff"
   },
   appTitle: {
-    fontSize: 22,
-    fontWeight: "800",
+    fontSize: 24,
+    fontWeight: "900",
     color: theme.colors.text
   },
   sub: {
-    marginTop: 2,
-    color: theme.colors.muted
+    marginTop: 3,
+    color: theme.colors.muted,
+    fontWeight: "600"
   },
   logoutBtn: {
-    backgroundColor: theme.colors.danger,
-    borderRadius: 8,
-    paddingHorizontal: 12,
+    backgroundColor: "#FFE8E8",
+    borderRadius: 999,
+    paddingHorizontal: 14,
     paddingVertical: 8
   },
   logoutTxt: {
-    color: "#fff",
-    fontWeight: "700"
+    color: theme.colors.danger,
+    fontWeight: "800"
   },
   tabBar: {
     flexDirection: "row",
     backgroundColor: "#fff",
     borderTopWidth: 1,
     borderTopColor: theme.colors.border,
-    padding: 8,
+    paddingHorizontal: 8,
+    paddingTop: 8,
+    paddingBottom: 10,
     gap: 6
   },
   tabBtn: {
     flex: 1,
     alignItems: "center",
     paddingVertical: 10,
-    borderRadius: 10
+    borderRadius: 12
   },
   tabBtnActive: {
-    backgroundColor: theme.colors.primary
+    backgroundColor: theme.colors.primary,
+    shadowColor: "#0B4E68",
+    shadowOpacity: 0.22,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2
   },
   tabText: {
     color: theme.colors.muted,
@@ -203,6 +211,7 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   tabTextActive: {
-    color: "#fff"
+    color: "#fff",
+    fontWeight: "800"
   }
 });

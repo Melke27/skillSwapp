@@ -38,6 +38,15 @@ npm install
 npm run start
 ```
 
+For a physical phone (recommended):
+
+```bash
+cd mobile
+npm run start:phone
+```
+
+Then open Expo Go on your phone and scan the QR code.
+
 API URL is set in `mobile/.env`:
 
 ```env
@@ -51,6 +60,21 @@ EXPO_PUBLIC_API_URL=http://localhost:4000
 ```
 
 If testing on a physical Android device with local backend, use your LAN IP instead of localhost.
+
+### Mobile Red Screen / Startup Fix
+
+If mobile fails with red screen or startup issues:
+
+1. Confirm `mobile/.env` has:
+```env
+EXPO_PUBLIC_API_URL=https://skillswapp-xz6d.onrender.com
+```
+2. Start with clean cache:
+```bash
+cd mobile
+npm run start:clear
+```
+3. If backend is waking on Render, wait 30-60 seconds and retry login.
 
 ## Deploy Backend on Render
 
@@ -80,6 +104,10 @@ If testing on a physical Android device with local backend, use your LAN IP inst
 4. Wait for logs to show startup success, then test:
 - `https://skillswapp-xz6d.onrender.com/health`
 5. If this URL responds with JSON, your mobile app should connect.
+
+Important for existing/manual Render services:
+- `render.yaml` `generateValue: true` only auto-creates secrets when a Blueprint manages the service.
+- If your service was created manually (not Blueprint-synced), you must add `JWT_SECRET` yourself in the Render dashboard.
 
 ## API Summary
 

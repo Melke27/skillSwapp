@@ -18,20 +18,23 @@ export const SkillTag: React.FC<SkillTagProps> = ({ label, tone = "primary" }) =
 const styles = StyleSheet.create({
   tag: {
     borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 11,
+    paddingVertical: 6,
     marginRight: 8,
-    marginBottom: 8
+    marginBottom: 8,
+    borderWidth: 1
   },
   primary: {
-    backgroundColor: "#D6EEF6"
+    backgroundColor: "#D6EEF6",
+    borderColor: "#B7DEE9"
   },
   secondary: {
-    backgroundColor: "#D7F3E8"
+    backgroundColor: "#D7F3E8",
+    borderColor: "#BDE7D6"
   },
   text: {
     color: theme.colors.text,
-    fontWeight: "600",
+    fontWeight: "700",
     fontSize: 12
   }
 });
