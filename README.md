@@ -70,6 +70,17 @@ If testing on a physical Android device with local backend, use your LAN IP inst
 - Start: `npm start`
 - Health check: `/health`
 
+### If Render says "runtime not ready" or exits on startup
+
+1. Open your Render service: `skillswapp-backend`.
+2. Go to **Environment** and confirm these keys exist:
+- `MONGODB_URI` (your MongoDB Atlas connection string)
+- `JWT_SECRET` (long random string; if using this repo's `render.yaml`, Render can auto-generate it on new blueprint setup)
+3. Save changes and click **Manual Deploy** -> **Deploy latest commit**.
+4. Wait for logs to show startup success, then test:
+- `https://skillswapp-xz6d.onrender.com/health`
+5. If this URL responds with JSON, your mobile app should connect.
+
 ## API Summary
 
 - `POST /api/auth/register`
