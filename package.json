@@ -1,0 +1,15 @@
+{
+  "name": "skillswapp-platform",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "mobile",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "npm run dev:backend",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:mobile": "npm --prefix mobile run start",
+    "build": "npm --prefix backend run build"
+  }
+}
