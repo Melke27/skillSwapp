@@ -11,5 +11,10 @@
     "dev:backend": "npm --prefix backend run dev",
     "dev:mobile": "npm --prefix mobile run start",
     "build": "npm --prefix backend run build"
+  },
+  "dependencies": {
+    "expo": "~55.0.23",
+    "react": "19.2.0",
+    "react-native": "0.83.6"
   }
 }
