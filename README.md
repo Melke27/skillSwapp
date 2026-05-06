@@ -260,6 +260,11 @@ There are several ways to run the mobile application:
 ## API Reference
 All API endpoints are prefixed with `/api`.
 
+## Combined Professional Docs
+For a single consolidated documentation page, see:
+- `docs/ALL_DOCS.md`
+
+
 ### Authentication
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Login and receive JWT token
