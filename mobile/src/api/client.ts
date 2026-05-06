@@ -1,9 +1,11 @@
 import axios from "axios";
 
-const baseURL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:4000";
+const DEFAULT_API_URL = "https://skillswapp-xz6d.onrender.com";
+
+export const apiBaseUrl = (process.env.EXPO_PUBLIC_API_URL?.trim() || DEFAULT_API_URL).replace(/\/+$/, "");
 
 export const api = axios.create({
-  baseURL,
+  baseURL: apiBaseUrl,
   timeout: 10000
 });
 

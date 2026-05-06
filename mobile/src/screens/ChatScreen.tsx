@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { api, withAuth } from "../api/client";
+import { api, apiBaseUrl, withAuth } from "../api/client";
 import { ChatListItem, Message } from "../types/models";
 import { theme } from "../theme";
 
@@ -11,8 +11,6 @@ type ChatScreenProps = {
   targetPeerId?: string | null;
   onHandledTarget: () => void;
 };
-
-const baseURL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:4000";
 
 export const ChatScreen: React.FC<ChatScreenProps> = ({ token, userId, targetPeerId, onHandledTarget }) => {
   const [chats, setChats] = useState<ChatListItem[]>([]);
@@ -48,7 +46,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({ token, userId, targetPee
   }, [selectedChatId, token]);
 
   useEffect(() => {
-    const s = io(baseURL, {
+    const s = io(apiBaseUrl, {
       auth: { token }
     });
 

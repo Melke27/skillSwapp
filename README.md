@@ -27,7 +27,7 @@ npm install
 npm run dev
 ```
 
-Default backend URL: `http://localhost:4000`
+Local backend URL: `http://localhost:4000`
 
 ### 2) Mobile App (Android)
 
@@ -38,13 +38,19 @@ npm install
 npm run start
 ```
 
-Set your API URL in `mobile/.env`:
+API URL is set in `mobile/.env`:
+
+```env
+EXPO_PUBLIC_API_URL=https://skillswapp-xz6d.onrender.com
+```
+
+For local backend testing, switch it to:
 
 ```env
 EXPO_PUBLIC_API_URL=http://localhost:4000
 ```
 
-If testing on physical Android device, use your local IP.
+If testing on a physical Android device with local backend, use your LAN IP instead of localhost.
 
 ## Deploy Backend on Render
 

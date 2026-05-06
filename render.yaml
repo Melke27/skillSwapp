@@ -8,12 +8,14 @@ services:
     healthCheckPath: /health
     envVars:
       - key: NODE_VERSION
-        value: 20
+        value: 20.19.0
+      - key: NODE_ENV
+        value: production
       - key: PORT
         value: 4000
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
-        sync: false
+        generateValue: true
       - key: CLIENT_URL
         value: "*"
