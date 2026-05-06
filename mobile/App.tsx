@@ -3,6 +3,7 @@ import { ActivityIndicator, Pressable, SafeAreaView, StyleSheet, Text, View } fr
 import { StatusBar } from "expo-status-bar";
 import { AuthProvider, useAuth } from "./src/context/AuthContext";
 import { AuthScreen } from "./src/screens/AuthScreen";
+import { LandingScreen } from "./src/screens/LandingScreen";
 import { HomeScreen } from "./src/screens/HomeScreen";
 import { ProfileScreen } from "./src/screens/ProfileScreen";
 import { MatchesScreen } from "./src/screens/MatchesScreen";
@@ -17,6 +18,7 @@ type Tab = "home" | "profile" | "matches" | "chat" | "sessions";
 const AppShell: React.FC = () => {
   const { token, loading, logout } = useAuth();
   const [tab, setTab] = useState<Tab>("home");
+  const [authMode, setAuthMode] = useState<"login" | "register" | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [busy, setBusy] = useState(false);
   const [chatTargetPeerId, setChatTargetPeerId] = useState<string | null>(null);
@@ -62,7 +64,11 @@ const AppShell: React.FC = () => {
   }
 
   if (!token) {
-    return <AuthScreen />;
+    if (!authMode) {
+      return <LandingScreen onOpenAuth={setAuthMode} />;
+    }
+
+    return <AuthScreen initialMode={authMode} onBack={() => setAuthMode(null)} />;
   }
 
   return (

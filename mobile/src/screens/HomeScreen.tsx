@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 import { api } from "../api/client";
 import { withAuth } from "../api/client";
 import { SkillTag } from "../components/SkillTag";
@@ -46,6 +48,24 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ token, profile }) => {
             <Text style={styles.statLabel}>Rating</Text>
           </View>
         </View>
+      </View>
+
+      <View style={styles.actionRow}>
+        <Pressable style={({ hovered }: any) => [styles.actionCard, hovered && styles.actionCardHover]}>
+          <LinearGradient colors={theme.colors.primaryGradient as [string, string]} style={styles.actionIconWrap}>
+            <Ionicons name="search-outline" size={16} color="#fff" />
+          </LinearGradient>
+          <Text style={styles.actionTitle}>Find Matches</Text>
+          <Text style={styles.actionSub}>Discover skill partners instantly.</Text>
+        </Pressable>
+
+        <Pressable style={({ hovered }: any) => [styles.actionCard, hovered && styles.actionCardHover]}>
+          <View style={[styles.actionIconWrap, styles.actionIconAlt]}>
+            <Ionicons name="notifications-outline" size={16} color={theme.colors.accent} />
+          </View>
+          <Text style={styles.actionTitle}>Notifications</Text>
+          <Text style={styles.actionSub}>2 new messages and 1 upcoming session.</Text>
+        </Pressable>
       </View>
 
       <View style={styles.quickRow}>
@@ -97,7 +117,7 @@ const styles = StyleSheet.create({
     paddingBottom: 28
   },
   banner: {
-    backgroundColor: "#0E7EA8",
+    backgroundColor: "#7C3AED",
     borderRadius: theme.radius.lg,
     padding: 16,
     overflow: "hidden"
@@ -126,7 +146,7 @@ const styles = StyleSheet.create({
     fontWeight: "900"
   },
   bannerText: {
-    color: "#E9F8FD",
+    color: "#EFE7FF",
     marginTop: 8,
     fontSize: 15,
     lineHeight: 21
@@ -150,7 +170,7 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   statLabel: {
-    color: "#DFF5FC",
+    color: "#ECE1FF",
     fontSize: 11,
     marginTop: 4,
     textAlign: "center",
@@ -162,7 +182,7 @@ const styles = StyleSheet.create({
   },
   quickCard: {
     flex: 1,
-    backgroundColor: "#0D2A44",
+    backgroundColor: "#1E1B4B",
     borderRadius: 14,
     paddingVertical: 12,
     paddingHorizontal: 12
@@ -173,8 +193,50 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   quickText: {
-    color: "#BFD5EA",
+    color: "#C7D2FE",
     marginTop: 6,
+    fontSize: 12,
+    lineHeight: 18
+  },
+  actionRow: {
+    flexDirection: "row",
+    gap: 10
+  },
+  actionCard: {
+    flex: 1,
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    padding: 12
+  },
+  actionCardHover: {
+    transform: [{ translateY: -2 }],
+    shadowColor: "#7C3AED",
+    shadowOpacity: 0.16,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 3
+  },
+  actionIconWrap: {
+    width: 34,
+    height: 34,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10
+  },
+  actionIconAlt: {
+    backgroundColor: "#ECFDF5"
+  },
+  actionTitle: {
+    color: theme.colors.text,
+    fontSize: 14,
+    fontWeight: "800"
+  },
+  actionSub: {
+    marginTop: 6,
+    color: theme.colors.muted,
     fontSize: 12,
     lineHeight: 18
   },

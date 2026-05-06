@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import axios from "axios";
+import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../context/AuthContext";
 import { theme } from "../theme";
 
-export const AuthScreen: React.FC = () => {
+type AuthScreenProps = {
+  initialMode?: "login" | "register";
+  onBack?: () => void;
+};
+
+export const AuthScreen: React.FC<AuthScreenProps> = ({ initialMode = "login", onBack }) => {
   const { login, register } = useAuth();
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const [mode, setMode] = useState<"login" | "register">(initialMode);
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const submit = async () => {
@@ -64,6 +71,13 @@ export const AuthScreen: React.FC = () => {
       <View style={styles.bgBubbleB} />
       <View style={styles.bgBubbleC} />
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
+        {onBack ? (
+          <Pressable style={styles.backBtn} onPress={onBack}>
+            <Ionicons name="arrow-back" size={16} color={theme.colors.text} />
+            <Text style={styles.backText}>Back</Text>
+          </Pressable>
+        ) : null}
+
         <View style={styles.hero}>
           <Text style={styles.title}>SkillSwap</Text>
           <Text style={styles.subtitle}>A professional student skill exchange network.</Text>
@@ -78,24 +92,60 @@ export const AuthScreen: React.FC = () => {
           {mode === "register" && (
             <>
               <Text style={styles.label}>Full Name</Text>
-              <TextInput style={styles.input} placeholder="Your full name" value={name} onChangeText={setName} autoCapitalize="words" />
+              <View style={styles.inputWrap}>
+                <Ionicons name="person-outline" size={18} color="#67839F" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Your full name"
+                  placeholderTextColor="#8DA1B6"
+                  value={name}
+                  onChangeText={setName}
+                  autoCapitalize="words"
+                />
+              </View>
               <Text style={styles.label}>School / University</Text>
-              <TextInput style={styles.input} placeholder="Your school" value={school} onChangeText={setSchool} />
+              <View style={styles.inputWrap}>
+                <Ionicons name="school-outline" size={18} color="#67839F" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Your school"
+                  placeholderTextColor="#8DA1B6"
+                  value={school}
+                  onChangeText={setSchool}
+                />
+              </View>
             </>
           )}
 
           <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="you@example.com"
-            autoCapitalize="none"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-          />
+          <View style={styles.inputWrap}>
+            <Ionicons name="mail-outline" size={18} color="#67839F" style={styles.inputIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="you@example.com"
+              placeholderTextColor="#8DA1B6"
+              autoCapitalize="none"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
 
           <Text style={styles.label}>Password</Text>
-          <TextInput style={styles.input} placeholder="At least 6 characters" secureTextEntry value={password} onChangeText={setPassword} />
+          <View style={styles.inputWrap}>
+            <Ionicons name="lock-closed-outline" size={18} color="#67839F" style={styles.inputIcon} />
+            <TextInput
+              style={styles.input}
+              placeholder="At least 6 characters"
+              placeholderTextColor="#8DA1B6"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <Pressable style={styles.eyeBtn} onPress={() => setShowPassword((current) => !current)}>
+              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={18} color="#56708A" />
+            </Pressable>
+          </View>
 
           <Pressable style={styles.action} onPress={submit} disabled={busy}>
             <Text style={styles.actionText}>{busy ? "Please wait..." : mode === "register" ? "Create Account" : "Sign In"}</Text>
@@ -129,6 +179,23 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     padding: theme.spacing.lg
+  },
+  backBtn: {
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 10,
+    backgroundColor: "#fff",
+    borderColor: theme.colors.border,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 999
+  },
+  backText: {
+    color: theme.colors.text,
+    fontWeight: "700"
   },
   bgBubbleA: {
     position: "absolute",
@@ -202,13 +269,27 @@ const styles = StyleSheet.create({
     fontSize: 13
   },
   input: {
+    flex: 1,
+    paddingVertical: 12,
+    fontSize: 14,
+    color: theme.colors.text
+  },
+  inputWrap: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.md,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+    paddingHorizontal: 12,
     marginBottom: 12,
     backgroundColor: "#FAFCFF"
+  },
+  inputIcon: {
+    marginRight: 8
+  },
+  eyeBtn: {
+    paddingVertical: 6,
+    paddingLeft: 8
   },
   action: {
     backgroundColor: "#0F6E8C",

@@ -4,10 +4,15 @@
     "slug": "skillswapp",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "platforms": ["android"],
     "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.skillswap.studentexchange"
+      "package": "com.skillswap.studentexchange",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0E7EA8"
+      }
     }
   }
 }
